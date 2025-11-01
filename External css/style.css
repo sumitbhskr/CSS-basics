@@ -1,0 +1,14 @@
+body{
+    background-color:powderblue ;
+}
+
+h1{
+    color: blue;
+    text-align: center;
+}
+
+p{  
+    font-size: 30px;
+    color: red;
+    border: 2px solid blueviolet;
+}
