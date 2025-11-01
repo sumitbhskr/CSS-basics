@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CSS Full Demo — Layouts, Basics & Advanced</title>
+
+  <!-- Basic reset + box-sizing for predictable box model -->
+  <style>
+    /* -- CSS Variables (colors & spacing) ----------------------------- */
+    :root{
+      --bg: #f4f7fb;
+      --card: #ffffff;
+      --accent: #4f46e5;
+      --accent-2: #06b6d4;
+      --muted: #6b7280;
+      --gap: 16px;
+      --radius: 12px;
+      --maxw: 1100px;
+    }
+
+    /* -- Reset & box model ------------------------------------------- */
+    *, *::before, *::after { box-sizing: border-box; }
+    html,body { height:100%; margin:0; font-family: "Segoe UI", Roboto, Arial, sans-serif; background:var(--bg); color:#111827; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
+    a { color:var(--accent); text-decoration:none; }
+
+    /* -- Page container ---------------------------------------------- */
+    .page {
+      max-width: var(--maxw);
+      margin: 28px auto;
+      padding: 24px;
+    }
+
+    header {
+      display:flex;
+      gap:12px;
+      align-items:center;
+      margin-bottom:22px;
+    }
+    header h1 { font-size:1.6rem; margin:0; letter-spacing: -0.3px; }
+    header p { margin:0; color:var(--muted); font-size:0.95rem; }
+
+    /* -- Top demo area: flexbox -------------------------------------- */
+    .top-demo {
+      display:flex;                /* flex container */
+      gap: var(--gap);
+      margin-bottom:24px;
+    }
+    .card {
+      background:var(--card);
+      border-radius: var(--radius);
+      padding:18px;
+      box-shadow: 0 6px 18px rgba(15,23,42,0.06);
+      border: 1px solid rgba(15,23,42,0.04);
+    }
+
+    .flex-box {
+      flex:1 1 320px;              /* grow, shrink, base */
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      min-width: 300px;
+    }
+
+    .flex-row {
+      display:flex;                /* row of items */
+      gap:12px;
+      align-items:center;          /* vertical align items */
+      justify-content:space-between;
+      padding:12px;
+      border-radius:10px;
+      background: linear-gradient(90deg, rgba(79,70,229,0.06), rgba(6,182,212,0.03));
+    }
+
+    .flex-item {
+      flex: 1 1 0;
+      padding:14px;
+      text-align:center;
+      border-radius:8px;
+      border:1px solid rgba(15,23,42,0.06);
+      background: linear-gradient(180deg,#fff, #fbfdff);
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+    .flex-item:hover { transform: translateY(-6px); box-shadow: 0 10px 24px rgba(2,6,23,0.06); cursor:pointer; }
+
+    /* -- Grid demo -------------------------------------------------- */
+    .grid-demo {
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:12px;
+      margin-top:10px;
+    }
+    .grid-card {
+      padding:14px;
+      border-radius:10px;
+      background: linear-gradient(180deg,#fff,#fbfbff);
+      border:1px solid rgba(15,23,42,0.04);
+    }
+
+    /* -- Box model demo --------------------------------------------- */
+    .box-model {
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+      margin-top:14px;
+    }
+    .bm-outer {
+      background:#eef2ff;
+      padding:18px;              /* outer padding (to show nesting) */
+      border-radius:10px;
+      border:2px dashed rgba(79,70,229,0.25);
+      width:240px;
+    }
+    .bm-inner {
+      background:#fff;
+      padding:14px;
+      border: 4px solid #c7d2fe;
+      margin:10px;
+      text-align:center;
+    }
+
+    /* -- Inline vs Block demo -------------------------------------- */
+    .inline-block-demo { margin-top:16px; }
+    .inline-demo span { display:inline; padding:4px 6px; background:#fff; border-radius:6px; margin-right:6px; border:1px solid rgba(0,0,0,0.06); }
+    .block-demo div { display:block; margin-bottom:8px; padding:8px; background:#fff; border-radius:6px; border:1px solid rgba(0,0,0,0.06); }
+
+    /* -- Hover & pseudo-class demo --------------------------------- */
+    .btn {
+      display:inline-block;
+      padding:10px 14px;
+      border-radius:8px;
+      background:var(--accent);
+      color:white;
+      border:none;
+      cursor:pointer;
+      transition: transform .14s ease, opacity .14s ease;
+    }
+    .btn:hover { transform:translateY(-4px); opacity:.95; }
+    .btn:active { transform:translateY(-1px) scale(.99); }
+
+    /* -- Links with pseudo-classes ----------------------------------- */
+    .link-list a { display:inline-block; margin-right:12px; padding:6px 8px; border-radius:6px; }
+    .link-list a:focus { outline: 3px solid rgba(6,182,212,0.2); }
+
+    /* -- Borders, radius & background examples ----------------------- */
+    .styles-sample {
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:12px;
+    }
+    .sample {
+      padding:10px;
+      min-width:130px;
+      border-radius:12px;
+      border: 2px solid rgba(15,23,42,0.04);
+      background:linear-gradient(180deg,#fff,#f8fafc);
+      text-align:center;
+      box-shadow:0 4px 12px rgba(2,6,23,0.03);
+    }
+
+    /* -- Responsive tweaks ------------------------------------------- */
+    @media (max-width:900px){
+      .top-demo { flex-direction:column; }
+      .grid-demo { grid-template-columns: repeat(2,1fr); }
+    }
+    @media (max-width:520px){
+      .grid-demo { grid-template-columns: repeat(1,1fr); }
+    }
+
+    /* -- small typography -------------------------------------------- */
+    small { color:var(--muted); display:block; margin-top:8px; font-size:0.85rem; }
+    .muted { color:var(--muted); font-size:0.95rem; }
+    .code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", monospace; font-size:0.9rem; background:#0f172a06; padding:6px 8px; border-radius:6px; display:inline-block; }
+
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <header>
+      <div class="card" style="padding:12px;">
+        <strong>CSS Full Demo</strong>
+        <div class="muted" style="font-size:0.85rem">Flexbox • Grid • Box model • Inline/Block • Hover • Pseudo-classes</div>
+      </div>
+      <div style="margin-left:auto" class="muted">Try resizing the window to see responsive behavior</div>
+    </header>
+
+    <!-- TOP: Flexbox examples -->
+    <section class="top-demo">
+      <div class="card flex-box">
+        <h2 style="margin:0 0 6px 0">Flexbox — Centering & distribution</h2>
+        <div class="flex-row">
+          <div class="muted">justify-content: space-between</div>
+          <div class="muted">align-items: center</div>
+        </div>
+
+        <div style="display:flex; gap:12px;">
+          <div class="flex-item">
+            <strong>Item A</strong>
+            <div class="muted">flex: 1</div>
+          </div>
+          <div class="flex-item" style="flex:2">
+            <strong>Item B</strong>
+            <div class="muted">flex: 2 (wider)</div>
+          </div>
+          <div class="flex-item">
+            <strong>Item C</strong>
+            <div class="muted">flex: 1</div>
+          </div>
+        </div>
+
+        <small>Hover any card to see transform & shadow (transition)</small>
+      </div>
+
+      <!-- Grid card -->
+      <div class="card" style="flex:1 1 380px;">
+        <h2 style="margin:0 0 10px 0">Grid — 3 column demo</h2>
+        <div class="grid-demo" aria-hidden="false">
+          <div class="grid-card">Grid Cell 1<br><small class="muted">auto size</small></div>
+          <div class="grid-card">Grid Cell 2<br><small class="muted">auto size</small></div>
+          <div class="grid-card">Grid Cell 3<br><small class="muted">auto size</small></div>
+          <div class="grid-card">Grid Cell 4</div>
+          <div class="grid-card">Grid Cell 5</div>
+          <div class="grid-card">Grid Cell 6</div>
+        </div>
+
+        <small>Change <code class="code">grid-template-columns</code> to control columns.</small>
+      </div>
+    </section>
+
+    <!-- Box model / Inline vs Block -->
+    <section style="display:grid; grid-template-columns: 1fr 320px; gap:18px; margin-bottom:20px;">
+      <div class="card">
+        <h3 style="margin-top:0">Box Model (content → padding → border → margin)</h3>
+        <div class="box-model">
+          <div class="bm-outer">
+            Outer (padding area)
+            <div class="bm-inner">Inner box (border + padding + margin)</div>
+          </div>
+
+          <div style="flex:1">
+            <p><strong>Total width example:</strong></p>
+            <p class="muted">If content = 200px, padding = 20px (left+right), border = 4px (left+right), margin = 16px (left+right) → total = 200 + 40 + 8 + 32 = 280px</p>
+
+            <h4 style="margin-top:12px">Inline vs Block</h4>
+            <div class="inline-block-demo">
+              <div class="inline-demo">
+                <strong>Inline elements:</strong>
+                <span>&lt;span&gt;one</span>
+                <span>&lt;span&gt;two</span>
+                <span>&lt;span&gt;three</span>
+              </div>
+
+              <div class="block-demo" style="margin-top:8px">
+                <strong>Block elements:</strong>
+                <div>&lt;div&gt; line 1</div>
+                <div>&lt;div&gt; line 2</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right column: styles & hover -->
+      <aside class="card">
+        <h3 style="margin-top:0">Colors, Borders & Hover</h3>
+        <div class="styles-sample">
+          <div class="sample">
+            Primary<br><small class="muted">--accent</small>
+          </div>
+          <div class="sample">
+            Rounded<br><small class="muted">border-radius</small>
+          </div>
+          <div class="sample">
+            Shadow<br><small class="muted">box-shadow</small>
+          </div>
+        </div>
+
+        <div style="margin-top:12px">
+          <button class="btn" onclick="speakDescribe()">Speak: Describe your day</button>
+          <small>Uses Web Speech API (if supported)</small>
+        </div>
+
+        <div style="margin-top:12px" class="link-list">
+          <a href="#grid" tabindex="0">Grid</a>
+          <a href="#flex" tabindex="0">Flexbox</a>
+          <a href="#box" tabindex="0">Box Model</a>
+        </div>
+      </aside>
+    </section>
+
+    <!-- Pseudo class examples -->
+    <section class="card" id="advanced">
+      <h3 style="margin-top:0">Pseudo-classes & Interaction</h3>
+
+      <p>Try these interactions: <span style="padding:6px 8px; border-radius:6px; background:#fff; border:1px solid rgba(0,0,0,0.06)">:hover</span> <span style="padding:6px 8px; border-radius:6px; background:#fff; border:1px solid rgba(0,0,0,0.06)">:focus</span> <span style="padding:6px 8px; border-radius:6px; background:#fff; border:1px solid rgba(0,0,0,0.06)">:first-child</span></p>
+
+      <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:12px;">
+        <a class="btn" href="#" onclick="return false">Primary Action</a>
+        <button class="btn" aria-pressed="false" onclick="this.setAttribute('aria-pressed', (this.getAttribute('aria-pressed')==='true')? 'false' : 'true')">Toggle</button>
+        <a href="#" style="padding:10px 12px; border-radius:8px; border:1px solid #e6edf3; display:inline-block" onfocus="this.style.boxShadow='0 0 0 4px rgba(6,182,212,0.15)';" onblur="this.style.boxShadow='none'">Focusable Link</a>
+      </div>
+
+      <small class="muted" style="display:block; margin-top:10px">Pseudo-class example: <code class="code">p:first-child</code> or <code class="code">a:focus</code></small>
+    </section>
+
+    <!-- Footer with code snippets -->
+    <footer style="margin-top:18px; text-align:center;">
+      <small class="muted">This demo is self-contained. Edit values like <code class="code">grid-template-columns</code> or <code class="code">flex</code> on the page to experiment.</small>
+    </footer>
+
+  </div>
+
+  <!-- Optional: small JS for speaking "Describe your day" -->
+  <script>
+    const descriptionText = "Today I woke up early, had breakfast, studied web development, practiced CSS, played chess, and finished my day with a short walk and a movie.";
+
+    function speakDescribe() {
+      if (!('speechSynthesis' in window)) {
+        alert('Speech synthesis not supported in this browser.');
+        return;
+      }
+      const u = new SpeechSynthesisUtterance(descriptionText);
+      // optional: set voice/lang/rate
+      u.lang = 'en-US';
+      u.rate = 0.95;
+      window.speechSynthesis.cancel(); // stop any existing
+      window.speechSynthesis.speak(u);
+    }
+  </script>
+</body>
+</html>
