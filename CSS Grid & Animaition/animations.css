@@ -1,0 +1,44 @@
+.box {
+    height: 100px;
+    width: 300px;
+    background-color: pink;
+    animation: widthAnimation 3s ease-in 0s 3 normal;
+
+    /* animation: colorAnimation 2s ease-in 0s 3 normal; */
+}
+
+/* 
+@keyframes fontAnimation {
+    from {
+        font-size: 20px;
+    }
+    to {
+        font-size: 40px;
+    }
+} */
+
+ 
+/* 
+@keyframes colorAnimation {
+    from {
+        background-color: green;
+    }
+    to {
+        background-color: blue;
+    }
+}  */
+
+
+
+@keyframes widthAnimation {
+    from {
+      width: 10px;
+      background-color: green;
+    }
+    to {
+      width: 400px;
+       background-color: blue;
+       border-radius: 15px;
+    }
+} 
+
