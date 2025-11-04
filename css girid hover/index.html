@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Grid + Hover + Pseudo-classes</title>
+  <style>
+    /* GRID CONTAINER */
+    .grid {
+      display: grid;                  /* grid banaya */
+      grid-template-columns: 1fr 1fr; /* 2 column ban gaye */
+      gap: 10px;                      /* beech ka gap */
+    }
+
+    /* BOX STYLE */
+    .box {
+      background: lightblue;
+      padding: 30px;
+      text-align: center;
+      border-radius: 10px;
+      transition: 0.3s;  /* smooth hover ke liye */
+    }
+
+    /* HOVER EFFECT */
+    .box:hover {
+      background: orange;
+      transform: scale(1.1); /* thoda bada ho jata hai */
+    }
+
+    /* PSEUDO-CLASSES EXAMPLES */
+    .box:first-child { background: lightgreen; }   /* pehla box */
+    .box:last-child { background: pink; }          /* last box */
+    .box:nth-child(2) { background: yellow; }      /* doosra box */
+  </style>
+</head>
+<body>
+
+  <h2>🎨 Grid + Hover + Pseudo-classes Demo</h2>
+
+  <div class="grid">
+    <div class="box">Box 1</div>
+    <div class="box">Box 2</div>
+    <div class="box">Box 3</div>
+    <div class="box">Box 4</div>
+  </div>
+
+</body>
+</html>
