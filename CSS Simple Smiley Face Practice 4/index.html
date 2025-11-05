@@ -1,0 +1,80 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smiley face</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class=" face">
+        <div class="mouth"></div>
+        <div class="eyes">
+            <div class="left-eye"></div>
+            <div class="right-eye"></div>
+        </div>
+    </div>
+</body>
+
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smiley Face</title>
+    <link rel="stylesheet" href="style.css"> <!-- CSS file link -->
+</head>
+<body>
+
+<canvas id="smiley" width="200" height="200"></canvas>
+<button onclick="makeSad()">Sad Face</button>
+<button onclick="makeHappy()">Happy Face</button>
+
+<script>
+const canvas = document.getElementById('smiley');
+const ctx = canvas.getContext('2d');
+
+// Function to draw smiley face
+function drawFace(mouthCurve = 20) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Face
+    ctx.beginPath();
+    ctx.arc(100, 100, 80, 0, Math.PI * 2);
+    ctx.fillStyle = 'yellow';
+    ctx.fill();
+    ctx.stroke();
+
+    // Eyes
+    ctx.beginPath();
+    ctx.arc(65, 80, 10, 0, Math.PI * 2);
+    ctx.arc(135, 80, 10, 0, Math.PI * 2);
+    ctx.fillStyle = 'black';
+    ctx.fill();
+
+    // Mouth
+    ctx.beginPath();
+    if (mouthCurve > 0) {
+        ctx.arc(100, 110, 50, Math.PI * 0.2, Math.PI * 0.8, false); // Happy
+    } else {
+        ctx.arc(100, 140, 50, Math.PI * 1.2, Math.PI * 1.8, false); // Sad
+    }
+    ctx.stroke();
+}
+
+// Initial happy face
+drawFace();
+
+// Buttons functions
+function makeSad() { drawFace(-20); }
+function makeHappy() { drawFace(20); }
+
+</script>
+
+</body>
+</html>
